@@ -1,1 +1,6 @@
-The website clone will offer a wide range of products at affordable prices. The platform will have a similar design and functionality, including an extensive selection of electronics, home appliances, clothing, cosmetics, food, and more. Users will be able to easily search for the desired item using a convenient search and filtering system and view reviews from other customers. The clone will also provide delivery throughout the country and a warranty on all products.
+The website clone will offer a wide range of products at affordable prices. 
+The platform will have a similar design and functionality, including an 
+extensive selection of electronics, home appliances, clothing, cosmetics, 
+food, and more. Users will be able to easily search for the desired item using 
+a convenient search and filtering system and view reviews from other customers. 
+The clone will also provide delivery throughout the country and a warranty on all products.
