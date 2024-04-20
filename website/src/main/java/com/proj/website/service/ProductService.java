@@ -7,7 +7,11 @@ import com.proj.website.model.dto.response.ProductResponse;
 import com.proj.website.repository.CategoryRepository;
 import com.proj.website.repository.ProductRepository;
 import jakarta.transaction.Transactional;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +23,7 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
 
     @Transactional
-    public ProductResponse addProduct(ProductRequest productRequest) {
+    public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = new Product();
         product.setName(productRequest.getName());
         product.setPrice(productRequest.getPrice());
@@ -27,5 +31,42 @@ public class ProductService {
         Category category = categoryRepository.getReferenceById(productRequest.getCategoryId());
         product.setCategory(category);
         return ProductResponse.fromProduct(productRepository.save(product));
+    }
+
+    public List<ProductResponse> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(ProductResponse::fromProduct)
+                .collect(Collectors.toList());
+    }
+
+    public ProductResponse getProductById(Long id) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        return optionalProduct.map(ProductResponse::fromProduct).orElse(null);
+    }
+
+    @Transactional
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void removeProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    @Transactional
+    public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            product.setName(productRequest.getName());
+            product.setPrice(productRequest.getPrice());
+
+            Category category = categoryRepository.getReferenceById(productRequest.getCategoryId());
+            product.setCategory(category);
+            return ProductResponse.fromProduct(productRepository.save(product));
+        }
+        return null;
     }
 }

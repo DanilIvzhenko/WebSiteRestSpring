@@ -8,6 +8,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
@@ -20,4 +23,35 @@ public class CategoryService {
         category.setName(categoryRequest.getName());
         return CategoryResponse.fromCategory(categoryRepository.save(category));
     }
+
+    @Transactional
+    public void deleteCategory(Long categoryId) {
+        categoryRepository.deleteById(Math.toIntExact(categoryId));
+    }
+
+    @Transactional
+    public CategoryResponse updateCategory(Long categoryId, CategoryRequest categoryRequest) {
+        Category category = categoryRepository.findById(Math.toIntExact(categoryId))
+                .orElseThrow(() -> new RuntimeException("Category not found")); // You can replace RuntimeException with a more specific exception
+        category.setName(categoryRequest.getName());
+        return CategoryResponse.fromCategory(categoryRepository.save(category));
+    }
+
+    public CategoryResponse getCategory(Long categoryId) {
+        Category category = categoryRepository.findById(Math.toIntExact(categoryId))
+                .orElseThrow(() -> new RuntimeException("Category not found")); // You can replace RuntimeException with a more specific exception
+        return CategoryResponse.fromCategory(category);
+    }
+
+    @Transactional
+    public void removeCategory(Long id) {
+        categoryRepository.deleteById(Math.toIntExact(id));
+    }
+    public List<CategoryResponse> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream()
+                .map(CategoryResponse::fromCategory)
+                .collect(Collectors.toList());
+    }
+
 }
