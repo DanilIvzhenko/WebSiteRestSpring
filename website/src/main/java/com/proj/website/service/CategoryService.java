@@ -25,11 +25,6 @@ public class CategoryService {
     }
 
     @Transactional
-    public void deleteCategory(Long categoryId) {
-        categoryRepository.deleteById(Math.toIntExact(categoryId));
-    }
-
-    @Transactional
     public CategoryResponse updateCategory(Long categoryId, CategoryRequest categoryRequest) {
         Category category = categoryRepository.findById(Math.toIntExact(categoryId))
                 .orElseThrow(() -> new RuntimeException("Category not found")); // You can replace RuntimeException with a more specific exception
@@ -37,6 +32,7 @@ public class CategoryService {
         return CategoryResponse.fromCategory(categoryRepository.save(category));
     }
 
+    @Transactional
     public CategoryResponse getCategory(Long categoryId) {
         Category category = categoryRepository.findById(Math.toIntExact(categoryId))
                 .orElseThrow(() -> new RuntimeException("Category not found")); // You can replace RuntimeException with a more specific exception

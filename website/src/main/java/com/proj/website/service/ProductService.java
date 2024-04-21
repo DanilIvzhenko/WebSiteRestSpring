@@ -32,22 +32,17 @@ public class ProductService {
         product.setCategory(category);
         return ProductResponse.fromProduct(productRepository.save(product));
     }
-
+    @Transactional
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream()
                 .map(ProductResponse::fromProduct)
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     public ProductResponse getProductById(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         return optionalProduct.map(ProductResponse::fromProduct).orElse(null);
-    }
-
-    @Transactional
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
     }
 
     @Transactional
