@@ -32,6 +32,7 @@ public class ProductService {
         product.setCategory(category);
         return ProductResponse.fromProduct(productRepository.save(product));
     }
+
     @Transactional
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
@@ -39,6 +40,7 @@ public class ProductService {
                 .map(ProductResponse::fromProduct)
                 .collect(Collectors.toList());
     }
+
     @Transactional
     public ProductResponse getProductById(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);

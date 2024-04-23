@@ -1,6 +1,5 @@
 package com.proj.website.controller;
 
-import com.proj.website.model.Category;
 import com.proj.website.model.dto.request.CategoryRequest;
 import com.proj.website.model.dto.response.CategoryResponse;
 import com.proj.website.service.CategoryService;

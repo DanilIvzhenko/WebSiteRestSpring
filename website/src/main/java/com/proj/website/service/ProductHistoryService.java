@@ -1,17 +1,12 @@
 package com.proj.website.service;
 
-import com.proj.website.model.Category;
 import com.proj.website.model.Product;
 import com.proj.website.model.ProductHistory;
-import com.proj.website.model.dto.request.CategoryRequest;
 import com.proj.website.model.dto.request.ProductHistoryRequest;
-import com.proj.website.model.dto.response.CategoryResponse;
 import com.proj.website.model.dto.response.ProductHistoryResponse;
 import com.proj.website.repository.ProductHistoryRepository;
 import com.proj.website.repository.ProductRepository;
 import jakarta.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
